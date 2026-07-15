@@ -1,0 +1,11 @@
+torch==2.7.1
+torchvision==0.22.1
+
+coremltools==9.0
+pix2tex==0.1.4
+
+Pillow>=9.1,<12
+numpy>=1.26,<2.1
+
+transformers>=4.18,<5
+tokenizers>=0.13
