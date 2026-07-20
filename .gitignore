@@ -75,6 +75,7 @@ fastlane/test_output
 # Model conversion caches and intermediate artifacts
 Tools/model-conversion/.cache/
 Tools/model-conversion/artifacts/
+Tools/model-conversion/datasets/
 Tools/model-conversion/test-output/
 
 # Compiled Core ML cache

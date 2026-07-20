@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "contract": {
+    "otsuTieBreak": "first threshold with strictly greater score",
+    "foregroundRule": "pixel <= otsuThreshold",
+    "perimeterRule": "four-neighbor exposed grid edges",
+    "strokeWidthRule": "2 * foregroundArea / foregroundPerimeter"
+  },
+  "policy": {
+    "relativeStrokeWidthThreshold": 0.03137623705730272,
+    "smallTargetHeight": 24,
+    "largeTargetHeight": 40,
+    "largeWhenLessThanOrEqual": true
+  },
+  "cases": [
+    {
+      "id": "real-0024",
+      "evaluationGroup": "layer3_in_scope",
+      "image": "real-0024.pgm",
+      "width": 285,
+      "height": 70,
+      "otsuThreshold": 168,
+      "foregroundArea": 1601,
+      "foregroundPerimeter": 2952,
+      "estimatedStrokeWidth": 1.084688346883469,
+      "relativeStrokeWidth": 0.015495547812620985,
+      "selectedTargetHeight": 40
+    },
+    {
+      "id": "im2latex-test-04022",
+      "evaluationGroup": "layer1",
+      "image": "im2latex-test-04022.pgm",
+      "width": 334,
+      "height": 85,
+      "otsuThreshold": 136,
+      "foregroundArea": 1578,
+      "foregroundPerimeter": 2246,
+      "estimatedStrokeWidth": 1.4051647373107747,
+      "relativeStrokeWidth": 0.016531349850714996,
+      "selectedTargetHeight": 40
+    },
+    {
+      "id": "im2latex-test-03404--degraded",
+      "evaluationGroup": "layer2_degraded",
+      "image": "im2latex-test-03404--degraded.pgm",
+      "width": 234,
+      "height": 46,
+      "otsuThreshold": 168,
+      "foregroundArea": 982,
+      "foregroundPerimeter": 1362,
+      "estimatedStrokeWidth": 1.4419970631424377,
+      "relativeStrokeWidth": 0.031347762242226906,
+      "selectedTargetHeight": 40
+    },
+    {
+      "id": "im2latex-test-06291",
+      "evaluationGroup": "layer1",
+      "image": "im2latex-test-06291.pgm",
+      "width": 409,
+      "height": 39,
+      "otsuThreshold": 136,
+      "foregroundArea": 1220,
+      "foregroundPerimeter": 1988,
+      "estimatedStrokeWidth": 1.227364185110664,
+      "relativeStrokeWidth": 0.03147087654129908,
+      "selectedTargetHeight": 24
+    },
+    {
+      "id": "im2latex-test-04673--degraded",
+      "evaluationGroup": "layer2_degraded",
+      "image": "im2latex-test-04673--degraded.pgm",
+      "width": 284,
+      "height": 32,
+      "otsuThreshold": 181,
+      "foregroundArea": 1157,
+      "foregroundPerimeter": 1168,
+      "estimatedStrokeWidth": 1.981164383561644,
+      "relativeStrokeWidth": 0.06191138698630137,
+      "selectedTargetHeight": 24
+    },
+    {
+      "id": "real-0006",
+      "evaluationGroup": "layer3_in_scope",
+      "image": "real-0006.pgm",
+      "width": 131,
+      "height": 15,
+      "otsuThreshold": 170,
+      "foregroundArea": 375,
+      "foregroundPerimeter": 500,
+      "estimatedStrokeWidth": 1.5,
+      "relativeStrokeWidth": 0.1,
+      "selectedTargetHeight": 24
+    }
+  ]
+}

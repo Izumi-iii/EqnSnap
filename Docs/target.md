@@ -129,16 +129,16 @@ EqnSnap 首版需要完成以下闭环：
 
 ## 5. 与 Snapio 的代码复用
 
-截图软件项目为同级目录中的 Snapio：
+截图软件项目为开发工作区同级目录中的 Snapio：
 
 ```text
-/Users/wangjie/dddd/Snapio
+../Snapio
 ```
 
 Snapio 是原生 macOS AppKit 截图工具，核心业务已拆分到本地 Swift Package：
 
 ```text
-/Users/wangjie/dddd/Snapio/Packages/SnapioKit
+../Snapio/Packages/SnapioKit
 ```
 
 SnapioKit 使用 Swift 5.9 Package、Swift 5 语言模式，最低支持 macOS 11。EqnSnap 目标为 macOS 13，因此其系统兼容路径可以覆盖 EqnSnap。Snapio 使用 AppKit，EqnSnap 主界面使用 SwiftUI，但截图覆盖窗口本来就适合继续使用 AppKit，两者并不冲突。
@@ -305,7 +305,7 @@ SwiftUI 负责菜单、设置和结果界面。AppKit 负责全局快捷键、�
 | UI | SwiftUI，必要时使用 AppKit |
 | 应用形态 | 菜单栏常驻工具 |
 | Bundle Identifier | `com.izumiiii.EqnSnap` |
-| 截图代码来源 | `/Users/wangjie/dddd/Snapio/Packages/SnapioKit` |
+| 截图代码来源 | 同级项目 `../Snapio/Packages/SnapioKit` |
 | 首版权限 | 屏幕录制；不默认要求辅助功能权限 |
 | 识别模型 | pix2tex / LaTeX-OCR 0.1.4 |
 | 模型运行方式 | Core ML，本地离线 |
