@@ -1,11 +1,11 @@
 import CoreML
 import Foundation
 
-nonisolated protocol Pix2TexEncoderPredicting: AnyObject {
+protocol Pix2TexEncoderPredicting: AnyObject {
     func predict(pixelValues: MLMultiArray) throws -> MLMultiArray
 }
 
-nonisolated struct Pix2TexEncoderFeatureNames: Sendable, Equatable {
+struct Pix2TexEncoderFeatureNames: Sendable, Equatable {
     static let standard = Pix2TexEncoderFeatureNames(
         pixelValues: "pixel_values",
         encoderContext: "encoder_context"
@@ -15,7 +15,7 @@ nonisolated struct Pix2TexEncoderFeatureNames: Sendable, Equatable {
     let encoderContext: String
 }
 
-nonisolated final class CoreMLPix2TexEncoderModel: Pix2TexEncoderPredicting {
+final class CoreMLPix2TexEncoderModel: Pix2TexEncoderPredicting {
     private let model: MLModel
     private let names: Pix2TexEncoderFeatureNames
 
@@ -45,7 +45,7 @@ nonisolated final class CoreMLPix2TexEncoderModel: Pix2TexEncoderPredicting {
     }
 }
 
-nonisolated struct Pix2TexEncoderConfiguration: Sendable, Equatable {
+struct Pix2TexEncoderConfiguration: Sendable, Equatable {
     static let variable32 = Pix2TexEncoderConfiguration(
         supportedHeights: [32, 64],
         minimumWidth: 32,
@@ -63,7 +63,7 @@ nonisolated struct Pix2TexEncoderConfiguration: Sendable, Equatable {
     let embeddingDimension: Int
 }
 
-nonisolated enum Pix2TexEncoderError: Error, Sendable, Equatable {
+enum Pix2TexEncoderError: Error, Sendable, Equatable {
     case invalidInputShape([Int])
     case invalidInputDataType
     case invalidContextShape(expected: [Int], actual: [Int])
@@ -71,7 +71,7 @@ nonisolated enum Pix2TexEncoderError: Error, Sendable, Equatable {
     case missingContextOutput(String)
 }
 
-nonisolated final class Pix2TexEncoderRunner {
+final class Pix2TexEncoderRunner {
     private let predictor: Pix2TexEncoderPredicting
     private let configuration: Pix2TexEncoderConfiguration
 

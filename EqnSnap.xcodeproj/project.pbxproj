@@ -3,8 +3,49 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 60;
 	objects = {
+
+/* Begin PBXBuildFile section */
+		B10000000000000000000001 /* EqnSnapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000101 /* EqnSnapApp.swift */; };
+		B10000000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000102 /* ContentView.swift */; };
+		B10000000000000000000003 /* CarbonHotKeyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000103 /* CarbonHotKeyClient.swift */; };
+		B10000000000000000000004 /* EqnSnapStatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000104 /* EqnSnapStatusItemController.swift */; };
+		B10000000000000000000005 /* FormulaCaptureWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000105 /* FormulaCaptureWorkflow.swift */; };
+		B10000000000000000000006 /* FormulaLatexPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000106 /* FormulaLatexPreview.swift */; };
+		B10000000000000000000007 /* FormulaResultWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000107 /* FormulaResultWindowController.swift */; };
+		B10000000000000000000008 /* CaptureGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000108 /* CaptureGeometry.swift */; };
+		B10000000000000000000009 /* FormulaSelectionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000109 /* FormulaSelectionOverlayView.swift */; };
+		B1000000000000000000000A /* FormulaSelectionOverlayWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000010A /* FormulaSelectionOverlayWindowController.swift */; };
+		B1000000000000000000000B /* FormulaSelectionReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000010B /* FormulaSelectionReducer.swift */; };
+		B1000000000000000000000C /* MacScreenCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000010C /* MacScreenCaptureService.swift */; };
+		B1000000000000000000000D /* FormulaStrokeProfileAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000010D /* FormulaStrokeProfileAnalyzer.swift */; };
+		B1000000000000000000000E /* Pix2TexDecoderRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000010E /* Pix2TexDecoderRunner.swift */; };
+		B1000000000000000000000F /* Pix2TexEncoderRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000010F /* Pix2TexEncoderRunner.swift */; };
+		B10000000000000000000010 /* Pix2TexFormulaImagePreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000110 /* Pix2TexFormulaImagePreprocessor.swift */; };
+		B10000000000000000000011 /* Pix2TexModelBundleLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000111 /* Pix2TexModelBundleLoader.swift */; };
+		B10000000000000000000012 /* Pix2TexRecognitionPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000112 /* Pix2TexRecognitionPipeline.swift */; };
+		B10000000000000000000013 /* Pix2TexRecognitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000113 /* Pix2TexRecognitionService.swift */; };
+		B10000000000000000000014 /* Pix2TexScreenshotRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000114 /* Pix2TexScreenshotRecognizer.swift */; };
+		B10000000000000000000015 /* Pix2TexTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000115 /* Pix2TexTokenizer.swift */; };
+		B10000000000000000000041 /* CaptureGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000201 /* CaptureGeometryTests.swift */; };
+		B10000000000000000000042 /* CapturedDisplayFrameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000202 /* CapturedDisplayFrameTests.swift */; };
+		B10000000000000000000043 /* EqnSnapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000203 /* EqnSnapTests.swift */; };
+		B10000000000000000000044 /* FormulaLatexPreviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000204 /* FormulaLatexPreviewTests.swift */; };
+		B10000000000000000000045 /* FormulaSelectionReducerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000205 /* FormulaSelectionReducerTests.swift */; };
+		B10000000000000000000046 /* Pix2TexDecoderRunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000206 /* Pix2TexDecoderRunnerTests.swift */; };
+		B10000000000000000000047 /* Pix2TexEncoderRunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000207 /* Pix2TexEncoderRunnerTests.swift */; };
+		B10000000000000000000048 /* Pix2TexFormulaImagePreprocessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000208 /* Pix2TexFormulaImagePreprocessorTests.swift */; };
+		B10000000000000000000049 /* Pix2TexRecognitionPipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000209 /* Pix2TexRecognitionPipelineTests.swift */; };
+		B1000000000000000000004A /* Pix2TexTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000020A /* Pix2TexTokenizerTests.swift */; };
+		B10000000000000000000061 /* EqnSnapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000301 /* EqnSnapUITests.swift */; };
+		B10000000000000000000062 /* EqnSnapUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000302 /* EqnSnapUITestsLaunchTests.swift */; };
+		B10000000000000000000030 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000180 /* Assets.xcassets */; };
+		B10000000000000000000031 /* tokenizer.json in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000181 /* tokenizer.json */; };
+		B10000000000000000000032 /* Encoder model in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000182 /* Pix2TexEncoder-Variable32.mlpackage */; };
+		B10000000000000000000033 /* Decoder model in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000183 /* Pix2TexDecoder-Prefix128-Context169.mlpackage */; };
+		B10000000000000000000034 /* SwiftMath in Frameworks */ = {isa = PBXBuildFile; productRef = B10000000000000000000401 /* SwiftMath */; };
+/* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		A0FC72E130087D6600AE7F26 /* PBXContainerItemProxy */ = {
@@ -27,31 +68,51 @@
 		A0FC72D330087D6500AE7F26 /* EqnSnap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EqnSnap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0FC72E030087D6600AE7F26 /* EqnSnapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EqnSnapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0FC72EA30087D6600AE7F26 /* EqnSnapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EqnSnapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B10000000000000000000101 /* EqnSnapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqnSnapApp.swift; sourceTree = "<group>"; };
+		B10000000000000000000102 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B10000000000000000000103 /* CarbonHotKeyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarbonHotKeyClient.swift; sourceTree = "<group>"; };
+		B10000000000000000000104 /* EqnSnapStatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqnSnapStatusItemController.swift; sourceTree = "<group>"; };
+		B10000000000000000000105 /* FormulaCaptureWorkflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaCaptureWorkflow.swift; sourceTree = "<group>"; };
+		B10000000000000000000106 /* FormulaLatexPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaLatexPreview.swift; sourceTree = "<group>"; };
+		B10000000000000000000107 /* FormulaResultWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaResultWindowController.swift; sourceTree = "<group>"; };
+		B10000000000000000000108 /* CaptureGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureGeometry.swift; sourceTree = "<group>"; };
+		B10000000000000000000109 /* FormulaSelectionOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaSelectionOverlayView.swift; sourceTree = "<group>"; };
+		B1000000000000000000010A /* FormulaSelectionOverlayWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaSelectionOverlayWindowController.swift; sourceTree = "<group>"; };
+		B1000000000000000000010B /* FormulaSelectionReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaSelectionReducer.swift; sourceTree = "<group>"; };
+		B1000000000000000000010C /* MacScreenCaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacScreenCaptureService.swift; sourceTree = "<group>"; };
+		B1000000000000000000010D /* FormulaStrokeProfileAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaStrokeProfileAnalyzer.swift; sourceTree = "<group>"; };
+		B1000000000000000000010E /* Pix2TexDecoderRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexDecoderRunner.swift; sourceTree = "<group>"; };
+		B1000000000000000000010F /* Pix2TexEncoderRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexEncoderRunner.swift; sourceTree = "<group>"; };
+		B10000000000000000000110 /* Pix2TexFormulaImagePreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexFormulaImagePreprocessor.swift; sourceTree = "<group>"; };
+		B10000000000000000000111 /* Pix2TexModelBundleLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexModelBundleLoader.swift; sourceTree = "<group>"; };
+		B10000000000000000000112 /* Pix2TexRecognitionPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexRecognitionPipeline.swift; sourceTree = "<group>"; };
+		B10000000000000000000113 /* Pix2TexRecognitionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexRecognitionService.swift; sourceTree = "<group>"; };
+		B10000000000000000000114 /* Pix2TexScreenshotRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexScreenshotRecognizer.swift; sourceTree = "<group>"; };
+		B10000000000000000000115 /* Pix2TexTokenizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexTokenizer.swift; sourceTree = "<group>"; };
+		B10000000000000000000201 /* CaptureGeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureGeometryTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000202 /* CapturedDisplayFrameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedDisplayFrameTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000203 /* EqnSnapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqnSnapTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000204 /* FormulaLatexPreviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaLatexPreviewTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000205 /* FormulaSelectionReducerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaSelectionReducerTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000206 /* Pix2TexDecoderRunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexDecoderRunnerTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000207 /* Pix2TexEncoderRunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexEncoderRunnerTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000208 /* Pix2TexFormulaImagePreprocessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexFormulaImagePreprocessorTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000209 /* Pix2TexRecognitionPipelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexRecognitionPipelineTests.swift; sourceTree = "<group>"; };
+		B1000000000000000000020A /* Pix2TexTokenizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pix2TexTokenizerTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000301 /* EqnSnapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqnSnapUITests.swift; sourceTree = "<group>"; };
+		B10000000000000000000302 /* EqnSnapUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqnSnapUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000180 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B10000000000000000000181 /* tokenizer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tokenizer.json; sourceTree = "<group>"; };
+		B10000000000000000000182 /* Pix2TexEncoder-Variable32.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = "Pix2TexEncoder-Variable32.mlpackage"; sourceTree = "<group>"; };
+		B10000000000000000000183 /* Pix2TexDecoder-Prefix128-Context169.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = "Pix2TexDecoder-Prefix128-Context169.mlpackage"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		A0FC72D530087D6500AE7F26 /* EqnSnap */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = EqnSnap;
-			sourceTree = "<group>";
-		};
-		A0FC72E330087D6600AE7F26 /* EqnSnapTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = EqnSnapTests;
-			sourceTree = "<group>";
-		};
-		A0FC72ED30087D6600AE7F26 /* EqnSnapUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = EqnSnapUITests;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A0FC72D030087D6500AE7F26 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B10000000000000000000034 /* SwiftMath in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +153,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A0FC72D530087D6500AE7F26 /* EqnSnap */ = {isa = PBXGroup; children = (B10000000000000000000101, B10000000000000000000102, B10000000000000000000500, B10000000000000000000501, B10000000000000000000502, B10000000000000000000180, B10000000000000000000503, ); path = EqnSnap; sourceTree = "<group>"; };
+		B10000000000000000000500 /* Application */ = {isa = PBXGroup; children = (B10000000000000000000103, B10000000000000000000104, B10000000000000000000105, B10000000000000000000106, B10000000000000000000107, ); path = Application; sourceTree = "<group>"; };
+		B10000000000000000000501 /* Capture */ = {isa = PBXGroup; children = (B10000000000000000000108, B10000000000000000000109, B1000000000000000000010A, B1000000000000000000010B, B1000000000000000000010C, ); path = Capture; sourceTree = "<group>"; };
+		B10000000000000000000502 /* Recognition */ = {isa = PBXGroup; children = (B1000000000000000000010D, B1000000000000000000010E, B1000000000000000000010F, B10000000000000000000110, B10000000000000000000111, B10000000000000000000112, B10000000000000000000113, B10000000000000000000114, B10000000000000000000115, ); path = Recognition; sourceTree = "<group>"; };
+		B10000000000000000000503 /* Resources */ = {isa = PBXGroup; children = (B10000000000000000000504, ); path = Resources; sourceTree = "<group>"; };
+		B10000000000000000000504 /* Models */ = {isa = PBXGroup; children = (B10000000000000000000505, ); path = Models; sourceTree = "<group>"; };
+		B10000000000000000000505 /* Pix2Tex */ = {isa = PBXGroup; children = (B10000000000000000000183, B10000000000000000000182, B10000000000000000000181, ); path = Pix2Tex; sourceTree = "<group>"; };
+		A0FC72E330087D6600AE7F26 /* EqnSnapTests */ = {isa = PBXGroup; children = (B10000000000000000000201, B10000000000000000000202, B10000000000000000000203, B10000000000000000000204, B10000000000000000000205, B10000000000000000000206, B10000000000000000000207, B10000000000000000000208, B10000000000000000000209, B1000000000000000000020A, ); path = EqnSnapTests; sourceTree = "<group>"; };
+		A0FC72ED30087D6600AE7F26 /* EqnSnapUITests */ = {isa = PBXGroup; children = (B10000000000000000000301, B10000000000000000000302, ); path = EqnSnapUITests; sourceTree = "<group>"; };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -107,11 +177,9 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				A0FC72D530087D6500AE7F26 /* EqnSnap */,
-			);
 			name = EqnSnap;
 			packageProductDependencies = (
+				B10000000000000000000401 /* SwiftMath */,
 			);
 			productName = EqnSnap;
 			productReference = A0FC72D330087D6500AE7F26 /* EqnSnap.app */;
@@ -129,9 +197,6 @@
 			);
 			dependencies = (
 				A0FC72E230087D6600AE7F26 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				A0FC72E330087D6600AE7F26 /* EqnSnapTests */,
 			);
 			name = EqnSnapTests;
 			packageProductDependencies = (
@@ -153,9 +218,6 @@
 			dependencies = (
 				A0FC72EC30087D6600AE7F26 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				A0FC72ED30087D6600AE7F26 /* EqnSnapUITests */,
-			);
 			name = EqnSnapUITests;
 			packageProductDependencies = (
 			);
@@ -170,23 +232,24 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2660;
-				LastUpgradeCheck = 2660;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					A0FC72D230087D6500AE7F26 = {
-						CreatedOnToolsVersion = 26.6;
+						CreatedOnToolsVersion = 15.0;
 					};
 					A0FC72DF30087D6600AE7F26 = {
-						CreatedOnToolsVersion = 26.6;
+						CreatedOnToolsVersion = 15.0;
 						TestTargetID = A0FC72D230087D6500AE7F26;
 					};
 					A0FC72E930087D6600AE7F26 = {
-						CreatedOnToolsVersion = 26.6;
+						CreatedOnToolsVersion = 15.0;
 						TestTargetID = A0FC72D230087D6500AE7F26;
 					};
 				};
 			};
 			buildConfigurationList = A0FC72CE30087D6500AE7F26 /* Build configuration list for PBXProject "EqnSnap" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -194,8 +257,9 @@
 				Base,
 			);
 			mainGroup = A0FC72CA30087D6500AE7F26;
-			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
+			packageReferences = (
+				B10000000000000000000400 /* XCRemoteSwiftPackageReference "SwiftMath" */,
+			);
 			productRefGroup = A0FC72D430087D6500AE7F26 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -212,6 +276,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B10000000000000000000030,
+				B10000000000000000000033,
+				B10000000000000000000032,
+				B10000000000000000000031,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +304,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B10000000000000000000001,
+				B10000000000000000000002,
+				B10000000000000000000003,
+				B10000000000000000000004,
+				B10000000000000000000005,
+				B10000000000000000000006,
+				B10000000000000000000007,
+				B10000000000000000000008,
+				B10000000000000000000009,
+				B1000000000000000000000A,
+				B1000000000000000000000B,
+				B1000000000000000000000C,
+				B1000000000000000000000D,
+				B1000000000000000000000E,
+				B1000000000000000000000F,
+				B10000000000000000000010,
+				B10000000000000000000011,
+				B10000000000000000000012,
+				B10000000000000000000013,
+				B10000000000000000000014,
+				B10000000000000000000015,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +332,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B10000000000000000000041,
+				B10000000000000000000042,
+				B10000000000000000000043,
+				B10000000000000000000044,
+				B10000000000000000000045,
+				B10000000000000000000046,
+				B10000000000000000000047,
+				B10000000000000000000048,
+				B10000000000000000000049,
+				B1000000000000000000004A,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +349,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B10000000000000000000061,
+				B10000000000000000000062,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,10 +515,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -447,10 +545,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -468,9 +563,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.izumiiii.EqnSnapTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EqnSnap.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EqnSnap";
 			};
@@ -489,9 +582,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.izumiiii.EqnSnapTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EqnSnap.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EqnSnap";
 			};
@@ -508,9 +599,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.izumiiii.EqnSnapUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = EqnSnap;
 			};
@@ -527,9 +616,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.izumiiii.EqnSnapUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = EqnSnap;
 			};
@@ -575,6 +662,15 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B10000000000000000000400 /* XCRemoteSwiftPackageReference "SwiftMath" */ = {isa = XCRemoteSwiftPackageReference; repositoryURL = "https://github.com/mgriebling/SwiftMath.git"; requirement = {kind = exactVersion; version = 1.7.3; }; };
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B10000000000000000000401 /* SwiftMath */ = {isa = XCSwiftPackageProductDependency; package = B10000000000000000000400 /* XCRemoteSwiftPackageReference "SwiftMath" */; productName = SwiftMath; };
+/* End XCSwiftPackageProductDependency section */
+
 	};
 	rootObject = A0FC72CB30087D6500AE7F26 /* Project object */;
 }

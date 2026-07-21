@@ -9,19 +9,27 @@ final class FormulaResultWindowController:
     private let viewModel: FormulaResultViewModel
     private var closeHandler: (() -> Void)?
 
-    init() {
+    init(
+        previewRenderer: (any FormulaPreviewRendering)? = nil
+    ) {
+        let previewRenderer = previewRenderer
+            ?? SwiftMathFormulaPreviewRenderer()
         let viewModel = FormulaResultViewModel()
         self.viewModel = viewModel
         let hostingController = NSHostingController(
-            rootView: ContentView(viewModel: viewModel)
+            rootView: ContentView(
+                viewModel: viewModel,
+                previewRenderer: previewRenderer
+            )
         )
         let panel = NSPanel(
-            contentRect: NSRect(x: 0, y: 0, width: 600, height: 430),
+            contentRect: NSRect(x: 0, y: 0, width: 660, height: 620),
             styleMask: [.titled, .closable, .resizable, .utilityWindow],
             backing: .buffered,
             defer: false
         )
         panel.title = "EqnSnap"
+        panel.minSize = NSSize(width: 620, height: 560)
         panel.level = .floating
         panel.isReleasedWhenClosed = false
         panel.collectionBehavior = [.moveToActiveSpace, .fullScreenAuxiliary]
@@ -54,6 +62,7 @@ final class FormulaResultWindowController:
             size: NSSize(width: screenshot.width, height: screenshot.height)
         )
         viewModel.latex = ""
+        viewModel.previewStatus = .empty
         viewModel.copyConfirmation = nil
         viewModel.phase = .recognizing
         viewModel.onRetry = onRetry
@@ -62,6 +71,7 @@ final class FormulaResultWindowController:
 
     func showResult(_ latex: String) {
         viewModel.latex = latex
+        viewModel.previewStatus = latex.isEmpty ? .empty : .rendered
         viewModel.copyConfirmation = nil
         viewModel.phase = .result
         focus()

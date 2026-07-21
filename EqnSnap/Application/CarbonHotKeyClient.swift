@@ -106,6 +106,6 @@ final class CarbonHotKeyClient {
     }
 }
 
-nonisolated enum CarbonHotKeyError: Error, Equatable {
+enum CarbonHotKeyError: Error, Equatable {
     case registrationFailed(OSStatus)
 }

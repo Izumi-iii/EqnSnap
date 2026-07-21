@@ -1,10 +1,10 @@
 import CoreML
 import Foundation
-import Testing
+import XCTest
 @testable import EqnSnap
 
-struct Pix2TexDecoderRunnerTests {
-    @Test func stopsAtEOSAndBuildsContiguousMasks() async throws {
+final class Pix2TexDecoderRunnerTests: XCTestCase {
+    func testStopsAtEOSAndBuildsContiguousMasks() async throws {
         let predictor = ScriptedDecoderPredictor(tokens: [10, 11, 2])
         let runner = Pix2TexDecoderRunner(predictor: predictor)
 
@@ -12,14 +12,14 @@ struct Pix2TexDecoderRunnerTests {
             encoderContext: try makeContext(length: 29)
         )
 
-        #expect(result.tokenIDs == [10, 11])
-        #expect(result.decoderSteps == 3)
-        #expect(predictor.observedTokenLengths == [1, 2, 3])
-        #expect(predictor.observedContextLengths == [29, 29, 29])
-        #expect(predictor.observedPrefixes == [[1], [1, 10], [1, 10, 11]])
+        XCTAssert(result.tokenIDs == [10, 11])
+        XCTAssert(result.decoderSteps == 3)
+        XCTAssert(predictor.observedTokenLengths == [1, 2, 3])
+        XCTAssert(predictor.observedContextLengths == [29, 29, 29])
+        XCTAssert(predictor.observedPrefixes == [[1], [1, 10], [1, 10, 11]])
     }
 
-    @Test func throwsWhenMaximumTokenLengthIsReached() async throws {
+    func testThrowsWhenMaximumTokenLengthIsReached() async throws {
         let predictor = ScriptedDecoderPredictor(tokens: [10, 11, 12])
         let runner = Pix2TexDecoderRunner(
             predictor: predictor,
@@ -33,14 +33,14 @@ struct Pix2TexDecoderRunnerTests {
             _ = try await runner.decode(
                 encoderContext: try makeContext(length: 5)
             )
-            Issue.record("Expected maximum token length failure")
+            XCTFail("Expected maximum token length failure")
         } catch let error as Pix2TexDecoderError {
-            #expect(error == .maximumTokenLengthReached)
+            XCTAssert(error == .maximumTokenLengthReached)
         }
-        #expect(predictor.observedTokenLengths == [1, 2, 3])
+        XCTAssert(predictor.observedTokenLengths == [1, 2, 3])
     }
 
-    @Test func detectsRepeatedSuffixPattern() async throws {
+    func testDetectsRepeatedSuffixPattern() async throws {
         let predictor = ScriptedDecoderPredictor(tokens: [10, 10, 10])
         let runner = Pix2TexDecoderRunner(
             predictor: predictor,
@@ -54,13 +54,13 @@ struct Pix2TexDecoderRunnerTests {
             _ = try await runner.decode(
                 encoderContext: try makeContext(length: 9)
             )
-            Issue.record("Expected repetition failure")
+            XCTFail("Expected repetition failure")
         } catch let error as Pix2TexDecoderError {
-            #expect(error == .repetitionDetected([10]))
+            XCTAssert(error == .repetitionDetected([10]))
         }
     }
 
-    @Test func honorsTaskCancellationBeforePrediction() async throws {
+    func testHonorsTaskCancellationBeforePrediction() async throws {
         let predictor = ScriptedDecoderPredictor(tokens: [2])
         let runner = Pix2TexDecoderRunner(predictor: predictor)
         let context = try makeContext(length: 5)
@@ -73,9 +73,9 @@ struct Pix2TexDecoderRunnerTests {
 
         do {
             _ = try await task.value
-            Issue.record("Expected cancellation")
+            XCTFail("Expected cancellation")
         } catch is CancellationError {
-            #expect(predictor.observedTokenLengths.isEmpty)
+            XCTAssert(predictor.observedTokenLengths.isEmpty)
         }
     }
 
@@ -110,7 +110,7 @@ struct Pix2TexDecoderRunnerTests {
     }
 }
 
-nonisolated private final class ScriptedDecoderPredictor: Pix2TexDecoderPredicting {
+private final class ScriptedDecoderPredictor: Pix2TexDecoderPredicting {
     private let tokens: [Int32]
     private var callIndex = 0
 

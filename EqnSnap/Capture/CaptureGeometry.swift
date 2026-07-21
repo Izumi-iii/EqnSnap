@@ -3,30 +3,30 @@ import Foundation
 
 // Adapted from SnapioCore/Shared/GeometryTypes.swift and
 // SnapioCore/Capture/GeometryMapper.swift.
-nonisolated enum BottomLeftGlobalPoints: Sendable {}
-nonisolated enum DisplayLocalPoints: Sendable {}
+enum BottomLeftGlobalPoints: Sendable {}
+enum DisplayLocalPoints: Sendable {}
 
-nonisolated struct Point2<Space>: Equatable, Sendable {
+struct Point2<Space>: Equatable, Sendable {
     let rawValue: CGPoint
 }
 
-nonisolated struct PointRect<Space>: Equatable, Sendable {
+struct PointRect<Space>: Equatable, Sendable {
     let rawValue: CGRect
 }
 
-nonisolated struct PixelSize: Equatable, Sendable {
+struct PixelSize: Equatable, Sendable {
     let width: Int
     let height: Int
 }
 
-nonisolated struct PixelRect: Equatable, Sendable {
+struct PixelRect: Equatable, Sendable {
     let x: Int
     let y: Int
     let width: Int
     let height: Int
 }
 
-nonisolated struct CaptureSessionID: Hashable, Sendable {
+struct CaptureSessionID: Hashable, Sendable {
     let rawValue: UUID
 
     init(rawValue: UUID = UUID()) {
@@ -34,20 +34,20 @@ nonisolated struct CaptureSessionID: Hashable, Sendable {
     }
 }
 
-nonisolated struct CaptureDisplayGeometry: Equatable, Sendable {
+struct CaptureDisplayGeometry: Equatable, Sendable {
     let displayID: UInt32
     let bottomLeftGlobalFrame: PointRect<BottomLeftGlobalPoints>
     let localBounds: PointRect<DisplayLocalPoints>
     let pixelSize: PixelSize
 }
 
-nonisolated enum CaptureGeometryError: Error, Equatable, Sendable {
+enum CaptureGeometryError: Error, Equatable, Sendable {
     case emptyRect
     case outsideDisplay
     case invalidPixelSize
 }
 
-nonisolated struct CaptureGeometryMapper: Sendable {
+struct CaptureGeometryMapper: Sendable {
     func clamp(
         _ rect: PointRect<DisplayLocalPoints>,
         to geometry: CaptureDisplayGeometry
@@ -148,7 +148,7 @@ nonisolated struct CaptureGeometryMapper: Sendable {
     }
 }
 
-nonisolated private extension CGRect {
+private extension CGRect {
     var isFinite: Bool {
         origin.x.isFinite
             && origin.y.isFinite

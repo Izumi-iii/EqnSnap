@@ -1,8 +1,8 @@
 import CoreGraphics
-import Testing
+import XCTest
 @testable import EqnSnap
 
-struct FormulaSelectionReducerTests {
+final class FormulaSelectionReducerTests: XCTestCase {
     private let geometry = CaptureDisplayGeometry(
         displayID: 7,
         bottomLeftGlobalFrame: PointRect(
@@ -14,7 +14,7 @@ struct FormulaSelectionReducerTests {
         pixelSize: PixelSize(width: 200, height: 160)
     )
 
-    @Test func commitsReverseDragAndClipsToDisplay() {
+    func testCommitsReverseDragAndClipsToDisplay() {
         var reducer = FormulaSelectionReducer()
         var state = FormulaSelectionState.ready
         _ = reducer.reduce(
@@ -34,14 +34,14 @@ struct FormulaSelectionReducerTests {
             geometry: geometry
         )
 
-        #expect(
+        XCTAssert(
             effect == .commit(
                 PixelRect(x: 0, y: 0, width: 180, height: 140)
             )
         )
     }
 
-    @Test func clickWithoutDragCancelsSelection() {
+    func testClickWithoutDragCancelsSelection() {
         var reducer = FormulaSelectionReducer()
         var state = FormulaSelectionState.ready
         _ = reducer.reduce(
@@ -56,10 +56,10 @@ struct FormulaSelectionReducerTests {
             geometry: geometry
         )
 
-        #expect(effect == .cancel)
+        XCTAssert(effect == .cancel)
     }
 
-    @Test func escapeCancelsActiveDrag() {
+    func testEscapeCancelsActiveDrag() {
         var reducer = FormulaSelectionReducer()
         var state = FormulaSelectionState.ready
         _ = reducer.reduce(
@@ -74,7 +74,7 @@ struct FormulaSelectionReducerTests {
             geometry: geometry
         )
 
-        #expect(effect == .cancel)
+        XCTAssert(effect == .cancel)
     }
 
     private func point(

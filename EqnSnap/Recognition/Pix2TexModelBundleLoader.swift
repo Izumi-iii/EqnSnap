@@ -1,7 +1,7 @@
 import CoreML
 import Foundation
 
-nonisolated struct Pix2TexModelResourceNames: Sendable, Equatable {
+struct Pix2TexModelResourceNames: Sendable, Equatable {
     static let standard = Pix2TexModelResourceNames(
         encoder: "Pix2TexEncoder-Variable32",
         decoder: "Pix2TexDecoder-Prefix128-Context169",
@@ -13,7 +13,7 @@ nonisolated struct Pix2TexModelResourceNames: Sendable, Equatable {
     let tokenizer: String
 }
 
-nonisolated struct Pix2TexLoadedModelBundle {
+struct Pix2TexLoadedModelBundle {
     let encoder: MLModel
     let decoder: MLModel
     let tokenizer: Pix2TexTokenizer
@@ -31,7 +31,7 @@ nonisolated struct Pix2TexLoadedModelBundle {
     }
 }
 
-nonisolated enum Pix2TexModelBundleLoaderError: Error, Sendable, Equatable {
+enum Pix2TexModelBundleLoaderError: Error, Sendable, Equatable {
     case missingResource(String)
     case unsupportedModelResource(URL)
     case missingFeature(model: String, feature: String)
@@ -46,7 +46,7 @@ nonisolated enum Pix2TexModelBundleLoaderError: Error, Sendable, Equatable {
     case incompatibleTokenizer
 }
 
-nonisolated final class Pix2TexModelBundleLoader {
+final class Pix2TexModelBundleLoader {
     private enum FeatureLocation {
         case input
         case output

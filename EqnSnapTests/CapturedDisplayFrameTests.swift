@@ -1,10 +1,10 @@
 import CoreGraphics
-import Testing
+import XCTest
 @testable import EqnSnap
 
-struct CapturedDisplayFrameTests {
-    @Test func cropsSelectedPixelRectangle() throws {
-        let context = try #require(
+final class CapturedDisplayFrameTests: XCTestCase {
+    func testCropsSelectedPixelRectangle() throws {
+        let context = try XCTUnwrap(
             CGContext(
                 data: nil,
                 width: 8,
@@ -15,7 +15,7 @@ struct CapturedDisplayFrameTests {
                 bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
             )
         )
-        let image = try #require(context.makeImage())
+        let image = try XCTUnwrap(context.makeImage())
         let frame = CapturedDisplayFrame(
             image: image,
             geometry: CaptureDisplayGeometry(
@@ -34,12 +34,12 @@ struct CapturedDisplayFrameTests {
             to: PixelRect(x: 2, y: 1, width: 4, height: 3)
         )
 
-        #expect(cropped.width == 4)
-        #expect(cropped.height == 3)
+        XCTAssert(cropped.width == 4)
+        XCTAssert(cropped.height == 3)
     }
 
-    @Test func rejectsOutOfBoundsCrop() throws {
-        let context = try #require(
+    func testRejectsOutOfBoundsCrop() throws {
+        let context = try XCTUnwrap(
             CGContext(
                 data: nil,
                 width: 4,
@@ -50,7 +50,7 @@ struct CapturedDisplayFrameTests {
                 bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
             )
         )
-        let image = try #require(context.makeImage())
+        let image = try XCTUnwrap(context.makeImage())
         let frame = CapturedDisplayFrame(
             image: image,
             geometry: CaptureDisplayGeometry(
@@ -63,9 +63,14 @@ struct CapturedDisplayFrameTests {
             )
         )
 
-        #expect(throws: FormulaCaptureError.invalidGeometry) {
-            _ = try frame.crop(
+        XCTAssertThrowsError(
+            try frame.crop(
                 to: PixelRect(x: 3, y: 3, width: 2, height: 2)
+            )
+        ) { error in
+            XCTAssertEqual(
+                error as? FormulaCaptureError,
+                .invalidGeometry
             )
         }
     }

@@ -1,12 +1,12 @@
 import Foundation
 
-nonisolated struct Pix2TexTokenizerSpecialTokens: Decodable, Sendable, Equatable {
+struct Pix2TexTokenizerSpecialTokens: Decodable, Sendable, Equatable {
     let pad: Int
     let bos: Int
     let eos: Int
 }
 
-nonisolated struct Pix2TexTokenizerResource: Decodable, Sendable, Equatable {
+struct Pix2TexTokenizerResource: Decodable, Sendable, Equatable {
     let schemaVersion: Int
     let modelID: String
     let vocabularySize: Int
@@ -15,13 +15,13 @@ nonisolated struct Pix2TexTokenizerResource: Decodable, Sendable, Equatable {
     let tokensByID: [String]
 }
 
-nonisolated enum Pix2TexTokenizerError: Error, Sendable, Equatable {
+enum Pix2TexTokenizerError: Error, Sendable, Equatable {
     case unsupportedSchemaVersion(Int)
     case invalidVocabularySize
     case invalidTokenID(Int32)
 }
 
-nonisolated final class Pix2TexTokenizer {
+final class Pix2TexTokenizer {
     let resource: Pix2TexTokenizerResource
 
     init(data: Data) throws {
@@ -65,7 +65,7 @@ nonisolated final class Pix2TexTokenizer {
     }
 }
 
-nonisolated enum Pix2TexLatexPostProcessor {
+enum Pix2TexLatexPostProcessor {
     static func process(_ input: String) -> String {
         var text = compactTextCommands(input)
         // Python's `\w` treats Unicode letters and numbers as word

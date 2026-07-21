@@ -1,6 +1,6 @@
 import Foundation
 
-nonisolated struct GrayscaleImage: Sendable, Equatable {
+struct GrayscaleImage: Sendable, Equatable {
     let width: Int
     let height: Int
     let pixels: [UInt8]
@@ -15,12 +15,12 @@ nonisolated struct GrayscaleImage: Sendable, Equatable {
     }
 }
 
-nonisolated enum FormulaStrokeProfileError: Error, Equatable {
+enum FormulaStrokeProfileError: Error, Equatable {
     case invalidImageDimensions
     case noMeasurableForeground
 }
 
-nonisolated struct FormulaStrokeMetrics: Sendable, Equatable {
+struct FormulaStrokeMetrics: Sendable, Equatable {
     let otsuThreshold: UInt8
     let foregroundArea: Int
     let foregroundPerimeter: Int
@@ -28,7 +28,7 @@ nonisolated struct FormulaStrokeMetrics: Sendable, Equatable {
     let relativeStrokeWidth: Double
 }
 
-nonisolated struct FormulaStrokeProfilePolicy: Sendable, Equatable {
+struct FormulaStrokeProfilePolicy: Sendable, Equatable {
     static let pix2texV1 = FormulaStrokeProfilePolicy(
         relativeStrokeWidthThreshold: 0.03137623705730272,
         smallTargetHeight: 24,
@@ -46,7 +46,7 @@ nonisolated struct FormulaStrokeProfilePolicy: Sendable, Equatable {
     }
 }
 
-nonisolated enum FormulaStrokeProfileAnalyzer {
+enum FormulaStrokeProfileAnalyzer {
     static func analyze(_ image: GrayscaleImage) throws -> FormulaStrokeMetrics {
         let threshold = otsuThreshold(pixels: image.pixels)
         var foreground = [UInt8](repeating: 0, count: image.pixels.count)

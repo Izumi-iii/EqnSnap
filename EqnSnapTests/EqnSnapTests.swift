@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import Testing
+import XCTest
 @testable import EqnSnap
 
-struct EqnSnapTests {
+final class EqnSnapTests: XCTestCase {
     private struct FixtureSuite: Decodable {
         let policy: Policy
         let cases: [Fixture]
@@ -34,7 +34,7 @@ struct EqnSnapTests {
         let selectedTargetHeight: Int
     }
 
-    @Test func strokeProfileMatchesPythonFixtures() throws {
+    func testStrokeProfileMatchesPythonFixtures() throws {
         let fixtureDirectory = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .appendingPathComponent("Fixtures/StrokeProfiles")
@@ -48,7 +48,7 @@ struct EqnSnapTests {
             largeTargetHeight: suite.policy.largeTargetHeight
         )
 
-        #expect(policy == .pix2texV1)
+        XCTAssert(policy == .pix2texV1)
         for fixture in suite.cases {
             let image = try loadPGM(
                 fixtureDirectory.appendingPathComponent(fixture.image),
@@ -57,18 +57,18 @@ struct EqnSnapTests {
             )
             let metrics = try FormulaStrokeProfileAnalyzer.analyze(image)
 
-            #expect(metrics.otsuThreshold == fixture.otsuThreshold)
-            #expect(metrics.foregroundArea == fixture.foregroundArea)
-            #expect(metrics.foregroundPerimeter == fixture.foregroundPerimeter)
-            #expect(
+            XCTAssert(metrics.otsuThreshold == fixture.otsuThreshold)
+            XCTAssert(metrics.foregroundArea == fixture.foregroundArea)
+            XCTAssert(metrics.foregroundPerimeter == fixture.foregroundPerimeter)
+            XCTAssert(
                 abs(metrics.estimatedStrokeWidth - fixture.estimatedStrokeWidth)
                     < 1e-12
             )
-            #expect(
+            XCTAssert(
                 abs(metrics.relativeStrokeWidth - fixture.relativeStrokeWidth)
                     < 1e-12
             )
-            #expect(
+            XCTAssert(
                 policy.targetForegroundHeight(for: metrics)
                     == fixture.selectedTargetHeight
             )
@@ -78,7 +78,7 @@ struct EqnSnapTests {
     private func loadPGM(_ url: URL, width: Int, height: Int) throws -> GrayscaleImage {
         let data = try Data(contentsOf: url)
         let header = Data("P5\n\(width) \(height)\n255\n".utf8)
-        #expect(data.starts(with: header))
+        XCTAssert(data.starts(with: header))
         return try GrayscaleImage(
             width: width,
             height: height,

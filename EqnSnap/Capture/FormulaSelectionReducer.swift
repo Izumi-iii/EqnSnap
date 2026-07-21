@@ -1,7 +1,7 @@
 import CoreGraphics
 
 // Region-only adaptation of SnapioCore/SelectionReducer.swift.
-nonisolated enum FormulaSelectionState: Equatable, Sendable {
+enum FormulaSelectionState: Equatable, Sendable {
     case ready
     case dragging(
         anchor: Point2<DisplayLocalPoints>,
@@ -9,20 +9,20 @@ nonisolated enum FormulaSelectionState: Equatable, Sendable {
     )
 }
 
-nonisolated enum FormulaSelectionAction: Equatable, Sendable {
+enum FormulaSelectionAction: Equatable, Sendable {
     case primaryDown(Point2<DisplayLocalPoints>)
     case primaryDragged(Point2<DisplayLocalPoints>)
     case primaryUp(Point2<DisplayLocalPoints>)
     case cancel
 }
 
-nonisolated enum FormulaSelectionEffect: Equatable, Sendable {
+enum FormulaSelectionEffect: Equatable, Sendable {
     case none
     case commit(PixelRect)
     case cancel
 }
 
-nonisolated struct FormulaSelectionReducer: Sendable {
+struct FormulaSelectionReducer: Sendable {
     private let geometryMapper = CaptureGeometryMapper()
     private let minimumDragDistanceSquared: CGFloat = 9
 

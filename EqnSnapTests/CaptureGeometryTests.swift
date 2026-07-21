@@ -1,9 +1,9 @@
 import CoreGraphics
-import Testing
+import XCTest
 @testable import EqnSnap
 
-struct CaptureGeometryTests {
-    @Test func mapsRetinaSelectionUsingActualCapturedPixelSize() throws {
+final class CaptureGeometryTests: XCTestCase {
+    func testMapsRetinaSelectionUsingActualCapturedPixelSize() throws {
         let geometry = makeGeometry(
             pointSize: CGSize(width: 1_440, height: 900),
             pixelSize: PixelSize(width: 2_880, height: 1_800)
@@ -17,10 +17,10 @@ struct CaptureGeometryTests {
             geometry: geometry
         )
 
-        #expect(result == PixelRect(x: 20, y: 40, width: 202, height: 102))
+        XCTAssert(result == PixelRect(x: 20, y: 40, width: 202, height: 102))
     }
 
-    @Test func clipsSelectionAtFractionalDisplayScale() throws {
+    func testClipsSelectionAtFractionalDisplayScale() throws {
         let geometry = makeGeometry(
             pointSize: CGSize(width: 1_280, height: 800),
             pixelSize: PixelSize(width: 1_920, height: 1_200)
@@ -34,7 +34,7 @@ struct CaptureGeometryTests {
             geometry: geometry
         )
 
-        #expect(result == PixelRect(x: 0, y: 1_198, width: 12, height: 2))
+        XCTAssert(result == PixelRect(x: 0, y: 1_198, width: 12, height: 2))
     }
 
     private func makeGeometry(

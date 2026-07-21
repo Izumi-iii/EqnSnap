@@ -1,12 +1,12 @@
 import CoreML
 
-nonisolated struct Pix2TexRecognitionOutput: Sendable, Equatable {
+struct Pix2TexRecognitionOutput: Sendable, Equatable {
     let latex: String
     let tokenIDs: [Int32]
     let decoderSteps: Int
 }
 
-nonisolated final class Pix2TexRecognitionPipeline {
+final class Pix2TexRecognitionPipeline {
     private let encoderRunner: Pix2TexEncoderRunner
     private let decoderRunner: Pix2TexDecoderRunner
     private let tokenizer: Pix2TexTokenizer

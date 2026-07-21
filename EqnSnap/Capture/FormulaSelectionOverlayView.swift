@@ -9,7 +9,7 @@ protocol FormulaSelectionOverlayViewDelegate: AnyObject {
     )
 }
 
-nonisolated struct FormulaSelectionOverlaySnapshot: @unchecked Sendable {
+struct FormulaSelectionOverlaySnapshot: @unchecked Sendable {
     let displayFrame: CGImage
     let selectionRect: CGRect?
     let pixelSize: PixelSize?

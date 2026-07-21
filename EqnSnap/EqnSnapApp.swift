@@ -22,12 +22,20 @@ struct EqnSnapApp: App {
 @MainActor
 final class EqnSnapAppDelegate: NSObject, NSApplicationDelegate {
     private var workflow: FormulaCaptureWorkflow?
+#if DEBUG
+    private var previewResultWindowController: FormulaResultWindowController?
+#endif
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
         let workflow = FormulaCaptureWorkflow()
         workflow.start()
         self.workflow = workflow
+#if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("--preview-result-window") {
+            showResultWindowPreview()
+        }
+#endif
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -39,4 +47,45 @@ final class EqnSnapAppDelegate: NSObject, NSApplicationDelegate {
     ) -> Bool {
         true
     }
+
+#if DEBUG
+    private func showResultWindowPreview() {
+        let image = NSImage(size: NSSize(width: 560, height: 92))
+        image.lockFocus()
+        NSColor.white.setFill()
+        NSRect(origin: .zero, size: image.size).fill()
+        let formula = "∫₀ˣ (1 − t²) dt = x − x³⁄3"
+        formula.draw(
+            at: NSPoint(x: 54, y: 28),
+            withAttributes: [
+                .font: NSFont.systemFont(ofSize: 28),
+                .foregroundColor: NSColor.black,
+            ]
+        )
+        image.unlockFocus()
+
+        var rect = NSRect(origin: .zero, size: image.size)
+        guard let screenshot = image.cgImage(
+            forProposedRect: &rect,
+            context: nil,
+            hints: nil
+        ) else {
+            return
+        }
+
+        let controller = FormulaResultWindowController()
+        previewResultWindowController = controller
+        controller.showRecognizing(
+            screenshot: screenshot,
+            onRetry: {},
+            onClose: { [weak self, weak controller] in
+                controller?.dismiss()
+                self?.previewResultWindowController = nil
+            }
+        )
+        controller.showResult(
+            #"\int_{0}^{x}\left(1-t^{2}\right)\,dt=x-\frac{x^{3}}{3}"#
+        )
+    }
+#endif
 }

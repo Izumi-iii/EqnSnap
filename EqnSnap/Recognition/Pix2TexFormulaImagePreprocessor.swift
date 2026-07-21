@@ -3,7 +3,7 @@ import CoreGraphics
 import CoreML
 import Foundation
 
-nonisolated struct Pix2TexPreprocessingConfiguration: Sendable, Equatable {
+struct Pix2TexPreprocessingConfiguration: Sendable, Equatable {
     static let pix2texV1 = Pix2TexPreprocessingConfiguration(
         foregroundThreshold: 128,
         tightCropThreshold: 250,
@@ -25,7 +25,7 @@ nonisolated struct Pix2TexPreprocessingConfiguration: Sendable, Equatable {
     let strokeProfilePolicy: FormulaStrokeProfilePolicy
 }
 
-nonisolated struct PreparedFormulaInput {
+struct PreparedFormulaInput {
     let tensor: MLMultiArray
     let sourcePixelSize: CGSize
     let croppedPixelRect: CGRect
@@ -35,7 +35,7 @@ nonisolated struct PreparedFormulaInput {
     let strokeMetrics: FormulaStrokeMetrics
 }
 
-nonisolated enum Pix2TexFormulaImagePreprocessorError: Error, Equatable {
+enum Pix2TexFormulaImagePreprocessorError: Error, Equatable {
     case invalidImageDimensions
     case unableToCreateBitmapContext
     case noVisibleForeground
@@ -43,7 +43,7 @@ nonisolated enum Pix2TexFormulaImagePreprocessorError: Error, Equatable {
     case imageResizeFailed(Int)
 }
 
-nonisolated final class Pix2TexFormulaImagePreprocessor {
+final class Pix2TexFormulaImagePreprocessor {
     private struct CroppedImage {
         let image: GrayscaleImage
         let rect: CGRect

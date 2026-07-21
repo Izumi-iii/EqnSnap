@@ -1,8 +1,8 @@
 import Foundation
-import Testing
+import XCTest
 @testable import EqnSnap
 
-struct Pix2TexTokenizerTests {
+final class Pix2TexTokenizerTests: XCTestCase {
     private struct FixtureSuite: Decodable {
         let cases: [Fixture]
     }
@@ -14,7 +14,7 @@ struct Pix2TexTokenizerTests {
         let postProcessed: String
     }
 
-    @Test func matchesPythonTokenizerFixtures() throws {
+    func testMatchesPythonTokenizerFixtures() throws {
         let repositoryRoot = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -36,7 +36,7 @@ struct Pix2TexTokenizerTests {
         for fixture in fixtures.cases {
             let result = try tokenizer.decode(fixture.tokenIDs)
             if result != fixture.postProcessed {
-                Issue.record(
+                XCTFail(
                     "\(fixture.name): Swift=\(result) Python=\(fixture.postProcessed)"
                 )
             }

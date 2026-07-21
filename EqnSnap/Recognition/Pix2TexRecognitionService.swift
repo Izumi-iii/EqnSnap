@@ -1,6 +1,6 @@
 import CoreGraphics
 
-nonisolated struct CapturedFormulaImage: @unchecked Sendable {
+struct CapturedFormulaImage: @unchecked Sendable {
     let image: CGImage
 }
 

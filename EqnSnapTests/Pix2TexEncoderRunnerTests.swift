@@ -1,20 +1,20 @@
 import CoreML
-import Testing
+import XCTest
 @testable import EqnSnap
 
-struct Pix2TexEncoderRunnerTests {
-    @Test func returnsDynamicEncoderContext() async throws {
+final class Pix2TexEncoderRunnerTests: XCTestCase {
+    func testReturnsDynamicEncoderContext() async throws {
         let predictor = RecordingEncoderPredictor()
         let runner = Pix2TexEncoderRunner(predictor: predictor)
         let input = try makeInput(height: 32, width: 224)
 
         let context = try await runner.encode(input)
 
-        #expect(context.shape.map(\.intValue) == [1, 29, 256])
-        #expect(predictor.observedShapes == [[1, 1, 32, 224]])
+        XCTAssert(context.shape.map(\.intValue) == [1, 29, 256])
+        XCTAssert(predictor.observedShapes == [[1, 1, 32, 224]])
     }
 
-    @Test func rejectsUnsupportedInputShapeBeforePrediction() async throws {
+    func testRejectsUnsupportedInputShapeBeforePrediction() async throws {
         let predictor = RecordingEncoderPredictor()
         let runner = Pix2TexEncoderRunner(predictor: predictor)
 
@@ -22,14 +22,14 @@ struct Pix2TexEncoderRunnerTests {
             _ = try await runner.encode(
                 makeInput(height: 96, width: 224)
             )
-            Issue.record("Expected invalid input shape")
+            XCTFail("Expected invalid input shape")
         } catch let error as Pix2TexEncoderError {
-            #expect(error == .invalidInputShape([1, 1, 96, 224]))
+            XCTAssert(error == .invalidInputShape([1, 1, 96, 224]))
         }
-        #expect(predictor.observedShapes.isEmpty)
+        XCTAssert(predictor.observedShapes.isEmpty)
     }
 
-    @Test func rejectsUnexpectedContextShape() async throws {
+    func testRejectsUnexpectedContextShape() async throws {
         let predictor = RecordingEncoderPredictor(contextLengthOverride: 30)
         let runner = Pix2TexEncoderRunner(predictor: predictor)
 
@@ -37,9 +37,9 @@ struct Pix2TexEncoderRunnerTests {
             _ = try await runner.encode(
                 makeInput(height: 32, width: 224)
             )
-            Issue.record("Expected invalid context shape")
+            XCTFail("Expected invalid context shape")
         } catch let error as Pix2TexEncoderError {
-            #expect(
+            XCTAssert(
                 error == .invalidContextShape(
                     expected: [1, 29, 256],
                     actual: [1, 30, 256]
@@ -48,7 +48,7 @@ struct Pix2TexEncoderRunnerTests {
         }
     }
 
-    @Test func honorsTaskCancellationBeforePrediction() async throws {
+    func testHonorsTaskCancellationBeforePrediction() async throws {
         let predictor = RecordingEncoderPredictor()
         let runner = Pix2TexEncoderRunner(predictor: predictor)
         let input = try makeInput(height: 32, width: 224)
@@ -61,9 +61,9 @@ struct Pix2TexEncoderRunnerTests {
 
         do {
             _ = try await task.value
-            Issue.record("Expected cancellation")
+            XCTFail("Expected cancellation")
         } catch is CancellationError {
-            #expect(predictor.observedShapes.isEmpty)
+            XCTAssert(predictor.observedShapes.isEmpty)
         }
     }
 
@@ -75,7 +75,7 @@ struct Pix2TexEncoderRunnerTests {
     }
 }
 
-nonisolated private final class RecordingEncoderPredictor:
+private final class RecordingEncoderPredictor:
     Pix2TexEncoderPredicting
 {
     private let contextLengthOverride: Int?

@@ -1,10 +1,10 @@
 import CoreML
 import Foundation
-import Testing
+import XCTest
 @testable import EqnSnap
 
-struct Pix2TexRecognitionPipelineTests {
-    @Test func connectsEncoderDecoderAndTokenizer() async throws {
+final class Pix2TexRecognitionPipelineTests: XCTestCase {
+    func testConnectsEncoderDecoderAndTokenizer() async throws {
         let tokenizer = try loadTokenizer()
         let encoder = PipelineEncoderPredictor(marker: 42)
         let decoder = PipelineDecoderPredictor(
@@ -21,13 +21,13 @@ struct Pix2TexRecognitionPipelineTests {
             pixelValues: makeEmptyInput(height: 32, width: 32)
         )
 
-        #expect(result.latex == "=")
-        #expect(result.tokenIDs == [30])
-        #expect(result.decoderSteps == 2)
-        #expect(decoder.observedContextMarker == 42)
+        XCTAssert(result.latex == "=")
+        XCTAssert(result.tokenIDs == [30])
+        XCTAssert(result.decoderSteps == 2)
+        XCTAssert(decoder.observedContextMarker == 42)
     }
 
-    @Test func runsConvertedCoreMLModelsEndToEnd() async throws {
+    func testRunsConvertedCoreMLModelsEndToEnd() async throws {
         let repositoryRoot = repositoryRoot()
         let artifacts = repositoryRoot.appendingPathComponent(
             "Tools/model-conversion/artifacts"
@@ -63,8 +63,8 @@ struct Pix2TexRecognitionPipelineTests {
             pixelValues: input
         )
 
-        #expect(result.decoderSteps == 79)
-        #expect(
+        XCTAssert(result.decoderSteps == 79)
+        XCTAssert(
             result.latex
                 == "=-\\int_{0}^{1-\\ell-\\ell-1}\\!\\!\\!d t=-\\int_{0}^{1}(1-{\\frac{1}{1-\\ell}})d t=-\\mathrm{lin}(1-x)-{\\bar{x}}"
         )
@@ -127,12 +127,12 @@ struct Pix2TexRecognitionPipelineTests {
     }
 }
 
-nonisolated private enum NPYFixtureError: Error {
+private enum NPYFixtureError: Error {
     case unsupportedHeader
     case invalidDataLength
 }
 
-nonisolated private final class PipelineEncoderPredictor:
+private final class PipelineEncoderPredictor:
     Pix2TexEncoderPredicting
 {
     private let marker: Float32
@@ -153,7 +153,7 @@ nonisolated private final class PipelineEncoderPredictor:
     }
 }
 
-nonisolated private final class PipelineDecoderPredictor:
+private final class PipelineDecoderPredictor:
     Pix2TexDecoderPredicting
 {
     private let expectedMarker: Float32
@@ -195,6 +195,6 @@ nonisolated private final class PipelineDecoderPredictor:
     }
 }
 
-nonisolated private enum PipelineFixtureError: Error {
+private enum PipelineFixtureError: Error {
     case contextWasNotForwarded
 }

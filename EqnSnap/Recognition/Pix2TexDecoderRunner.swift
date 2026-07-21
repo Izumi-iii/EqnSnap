@@ -1,7 +1,7 @@
 import CoreML
 import Foundation
 
-nonisolated protocol Pix2TexDecoderPredicting: AnyObject {
+protocol Pix2TexDecoderPredicting: AnyObject {
     func predict(
         inputIDs: MLMultiArray,
         tokenMask: MLMultiArray,
@@ -10,7 +10,7 @@ nonisolated protocol Pix2TexDecoderPredicting: AnyObject {
     ) throws -> MLMultiArray
 }
 
-nonisolated struct Pix2TexDecoderFeatureNames: Sendable, Equatable {
+struct Pix2TexDecoderFeatureNames: Sendable, Equatable {
     static let standard = Pix2TexDecoderFeatureNames(
         inputIDs: "input_ids",
         tokenMask: "token_mask",
@@ -26,7 +26,7 @@ nonisolated struct Pix2TexDecoderFeatureNames: Sendable, Equatable {
     let logits: String
 }
 
-nonisolated final class CoreMLPix2TexDecoderModel: Pix2TexDecoderPredicting {
+final class CoreMLPix2TexDecoderModel: Pix2TexDecoderPredicting {
     private let model: MLModel
     private let names: Pix2TexDecoderFeatureNames
 
@@ -64,7 +64,7 @@ nonisolated final class CoreMLPix2TexDecoderModel: Pix2TexDecoderPredicting {
     }
 }
 
-nonisolated struct Pix2TexDecoderConfiguration: Sendable, Equatable {
+struct Pix2TexDecoderConfiguration: Sendable, Equatable {
     static let pix2texV1 = Pix2TexDecoderConfiguration(
         maximumTokenLength: 128,
         maximumContextLength: 169,
@@ -90,12 +90,12 @@ nonisolated struct Pix2TexDecoderConfiguration: Sendable, Equatable {
     let minimumPatternRepetitions: Int
 }
 
-nonisolated struct Pix2TexDecodedSequence: Sendable, Equatable {
+struct Pix2TexDecodedSequence: Sendable, Equatable {
     let tokenIDs: [Int32]
     let decoderSteps: Int
 }
 
-nonisolated enum Pix2TexDecoderError: Error, Sendable, Equatable {
+enum Pix2TexDecoderError: Error, Sendable, Equatable {
     case invalidEncoderContextShape([Int])
     case invalidEncoderContextDataType
     case invalidLogitsShape([Int])
@@ -107,7 +107,7 @@ nonisolated enum Pix2TexDecoderError: Error, Sendable, Equatable {
     case repetitionDetected([Int32])
 }
 
-nonisolated final class Pix2TexDecoderRunner {
+final class Pix2TexDecoderRunner {
     private let predictor: Pix2TexDecoderPredicting
     private let configuration: Pix2TexDecoderConfiguration
 

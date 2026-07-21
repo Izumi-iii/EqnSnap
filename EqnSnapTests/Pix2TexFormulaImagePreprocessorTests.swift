@@ -2,11 +2,11 @@ import CoreGraphics
 import CoreML
 import Foundation
 import ImageIO
-import Testing
+import XCTest
 @testable import EqnSnap
 
-struct Pix2TexFormulaImagePreprocessorTests {
-    @Test func matchesPythonStrokeProfileAndPreparedShape() throws {
+final class Pix2TexFormulaImagePreprocessorTests: XCTestCase {
+    func testMatchesPythonStrokeProfileAndPreparedShape() throws {
         let root = repositoryRoot()
         let image = try loadCGImage(
             root.appendingPathComponent(
@@ -16,21 +16,21 @@ struct Pix2TexFormulaImagePreprocessorTests {
 
         let prepared = try Pix2TexFormulaImagePreprocessor().prepare(image)
 
-        #expect(prepared.sourcePixelSize == CGSize(width: 726, height: 109))
-        #expect(
+        XCTAssert(prepared.sourcePixelSize == CGSize(width: 726, height: 109))
+        XCTAssert(
             prepared.croppedPixelRect
                 == CGRect(x: 9, y: 11, width: 708, height: 78)
         )
-        #expect(prepared.strokeMetrics.otsuThreshold == 140)
-        #expect(prepared.strokeMetrics.foregroundArea == 3_671)
-        #expect(prepared.strokeMetrics.foregroundPerimeter == 3_582)
-        #expect(prepared.targetForegroundHeight == 40)
-        #expect(prepared.actualForegroundSize == CGSize(width: 363, height: 40))
-        #expect(prepared.canvasSize == CGSize(width: 384, height: 64))
-        #expect(prepared.tensor.shape.map(\.intValue) == [1, 1, 64, 384])
+        XCTAssert(prepared.strokeMetrics.otsuThreshold == 140)
+        XCTAssert(prepared.strokeMetrics.foregroundArea == 3_671)
+        XCTAssert(prepared.strokeMetrics.foregroundPerimeter == 3_582)
+        XCTAssert(prepared.targetForegroundHeight == 40)
+        XCTAssert(prepared.actualForegroundSize == CGSize(width: 363, height: 40))
+        XCTAssert(prepared.canvasSize == CGSize(width: 384, height: 64))
+        XCTAssert(prepared.tensor.shape.map(\.intValue) == [1, 1, 64, 384])
     }
 
-    @Test func staysNumericallyCloseToPythonTensorFixture() throws {
+    func testStaysNumericallyCloseToPythonTensorFixture() throws {
         let root = repositoryRoot()
         let fixtureURL = root.appendingPathComponent(
             "Tools/model-conversion/artifacts/fixtures/encoder-variable32/target-height-40/input.npy"
@@ -53,14 +53,14 @@ struct Pix2TexFormulaImagePreprocessorTests {
         // vImage high-quality resampling is not bit-identical to Pillow's
         // Lanczos implementation, but it must stay close enough to preserve
         // the model's generated token sequence.
-        #expect(comparison.maximumAbsoluteError < 0.5)
-        #expect(
+        XCTAssert(comparison.maximumAbsoluteError < 0.5)
+        XCTAssert(
             comparison.meanAbsoluteError < 0.02,
             "mean error: \(comparison.meanAbsoluteError)"
         )
     }
 
-    @Test func recognizesScreenshotUsingBundledModels() async throws {
+    func testRecognizesScreenshotUsingBundledModels() async throws {
         let image = try loadCGImage(
             repositoryRoot().appendingPathComponent(
                 "Tools/model-conversion/test_images/formula.png"
@@ -73,8 +73,8 @@ struct Pix2TexFormulaImagePreprocessorTests {
 
         let result = try await recognizer.recognize(image)
 
-        #expect(result.decoderSteps == 72)
-        #expect(
+        XCTAssert(result.decoderSteps == 72)
+        XCTAssert(
             result.latex
                 == "=-\\int_{0}^{x}{\\frac{1-t-1}{1-t}}d t=-\\int_{0}^{x}(1-{\\frac{1}{1-t}})d t=-\\ln(1-x)-x"
         )
@@ -150,7 +150,7 @@ struct Pix2TexFormulaImagePreprocessorTests {
     }
 }
 
-nonisolated private enum PreprocessingFixtureError: Error {
+private enum PreprocessingFixtureError: Error {
     case unreadableImage
     case unsupportedNPYHeader
     case invalidNPYDataLength

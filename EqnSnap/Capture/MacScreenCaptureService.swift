@@ -4,7 +4,7 @@ import CoreVideo
 import Foundation
 import ScreenCaptureKit
 
-nonisolated enum FormulaCaptureError: Error, Equatable, Sendable {
+enum FormulaCaptureError: Error, Equatable, Sendable {
     case screenCapturePermissionDenied
     case displayUnavailable
     case invalidGeometry
@@ -12,7 +12,7 @@ nonisolated enum FormulaCaptureError: Error, Equatable, Sendable {
     case captureFailed
 }
 
-nonisolated struct CapturedDisplayFrame: @unchecked Sendable {
+struct CapturedDisplayFrame: @unchecked Sendable {
     let image: CGImage
     let geometry: CaptureDisplayGeometry
 

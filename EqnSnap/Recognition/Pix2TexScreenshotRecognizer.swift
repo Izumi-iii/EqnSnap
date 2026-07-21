@@ -2,7 +2,7 @@ import CoreGraphics
 import CoreML
 import Foundation
 
-nonisolated final class Pix2TexScreenshotRecognizer {
+final class Pix2TexScreenshotRecognizer {
     private let preprocessor: Pix2TexFormulaImagePreprocessor
     private let pipeline: Pix2TexRecognitionPipeline
 
