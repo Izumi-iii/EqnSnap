@@ -1,0 +1,7 @@
+torch==2.7.1
+torchvision==0.22.1
+unimernet==0.2.3
+
+Pillow>=9.1,<12
+numpy>=1.26,<2.1
+pyarrow>=14,<21

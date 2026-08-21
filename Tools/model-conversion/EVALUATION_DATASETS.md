@@ -54,6 +54,84 @@ datasets/evaluation/layer1a-simple-single-line/
 
 筛选过程不能读取 pix2tex 预测或既有评测分数，否则会形成挑选容易样本的数据泄漏。具体阈值和排除数量记录在 `summary.json`。
 
+## 第一层 B：复杂和多行公式子集
+
+运行下面的命令，从固定 Layer 1 中建立模型无关的复杂公式压力集：
+
+```bash
+.venv/bin/python build_complex_formula_subset.py
+```
+
+生成目录：
+
+```text
+datasets/evaluation/layer1b-complex-formulas/
+├── manifest.jsonl
+└── summary.json
+```
+
+`complex-formulas-v1` 当前包含 246 条：
+
+- 157 条复杂单行公式。
+- 64 条带多行环境、显式换行或堆叠结构的公式。
+- 25 条超长或过高、但未归入明确多行的公式。
+
+复杂单行公式按 LaTeX 长度、命令数、上下标数、分式数、大型算子数和公式高度筛选。多行和超长类别复用 Layer 1 已记录的范围原因。筛选不读取任何模型预测；图片直接引用 Layer 1，不重复保存。
+
+这一层是来自 im2latex-100k 的合成压力集，适合做同源模型对比，但不能代替真实复杂截图，也不能排除训练集重叠造成的偏差。
+
+### UniMERNet Tiny Python 基线
+
+UniMERNet 0.2.3 固定依赖 `transformers==4.42.4`，与 pix2tex 环境中的版本不同，因此使用独立环境：
+
+```bash
+~/.local/bin/uv venv --python 3.11 .venv-unimernet
+~/.local/bin/uv pip sync \
+  --python .venv-unimernet/bin/python \
+  requirements-unimernet.txt
+```
+
+`requirements-unimernet.txt` 还将 `pyarrow` 固定为 20.0.0，避免 UniMERNet 间接依赖的 `datasets==2.14.4` 在新版 pyarrow 上导入失败。
+
+首次评测会把 `wanderkid/unimernet_tiny` 下载到被 Git 忽略的 `.cache/unimernet_tiny`。Tiny checkpoint 为 430,075,701 字节；评测时记录 SHA-256，并检查加载后的 missing/unexpected keys。
+
+```bash
+NO_ALBUMENTATIONS_UPDATE=1 \
+.venv-unimernet/bin/python evaluate_unimernet.py \
+  --manifest datasets/evaluation/layer1b-complex-formulas/manifest.jsonl \
+  --device mps \
+  --max-tokens 1536 \
+  --offline
+```
+
+运行 pix2tex 对照并使用共同的模型无关 LaTeX 词法指标比较：
+
+```bash
+.venv/bin/python evaluate_pix2tex.py \
+  --manifest datasets/evaluation/layer1b-complex-formulas/manifest.jsonl \
+  --output test-output/layer1b-pix2tex-evaluation.json \
+  --csv test-output/layer1b-pix2tex-samples.csv
+
+.venv/bin/python compare_formula_model_reports.py
+```
+
+2026-08-21 的本机 PyTorch 基线结果：
+
+| 数据 | pix2tex 共同词法相似度 | UniMERNet Tiny 共同词法相似度 |
+|---|---:|---:|
+| 全部 246 条 | 0.658 | 0.702 |
+| 复杂单行 157 条 | 0.713 | 0.735 |
+| 超长或过高 25 条 | 0.661 | 0.696 |
+| 多行 64 条 | 0.521 | 0.622 |
+
+逐条比较中，UniMERNet Tiny 在 136 条上更高，pix2tex 在 69 条上更高，41 条持平。UniMERNet 的优势主要集中在多行公式，但仍存在欠生成样本；生成长度 P50 为 215 Token、P95 为 448 Token、最大为 1022 Token，其中 10 条超过 512 Token。
+
+同机 Python 测试中，UniMERNet MPS 的延迟 P50/P95 为 3.90/7.85 秒，最长约 21.06 秒。pix2tex 的完整报告使用 CPU，不能与该延迟作严格倍数比较；额外的 15 条 pix2tex MPS 冒烟测试也表明 PyTorch MPS 路径并不代表 Core ML 性能。因此速度、内存和功耗必须在 UniMERNet 转换成 Core ML 后重新测量。
+
+在现有 35 张真实截图上，共同词法相似度为 pix2tex 0.742、UniMERNet Tiny 0.711；pix2tex 赢 15 条、UniMERNet 赢 6 条、14 条持平。当前证据支持保留 pix2tex 作为简单单行默认模型，把 UniMERNet 作为复杂/多行候选，而不是全面替换。
+
+共同词法指标忽略空白、纯排版间距命令，并把 `\rm` 视为 `\mathrm`。它比原始字符串距离更公平，但仍不能证明数学或渲染语义等价；发布决策还需要 CDM、渲染比较和人工复核。
+
 ### 短公式失败诊断
 
 使用既有 Layer 1 报告选择长度膨胀、严重错识别和稳定对照样本，并比较缩放与 Decoder 策略：
