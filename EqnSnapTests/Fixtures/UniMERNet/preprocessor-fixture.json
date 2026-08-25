@@ -1,0 +1,16 @@
+{
+  "sourceImage": "Tools/model-conversion/test_images/formula.png",
+  "sourceSize": [
+    726,
+    109
+  ],
+  "tensorShape": [
+    1,
+    3,
+    192,
+    672
+  ],
+  "minimum": -4.563291072845459,
+  "maximum": 1.1453216075897217,
+  "mean": -2.599827527999878
+}
