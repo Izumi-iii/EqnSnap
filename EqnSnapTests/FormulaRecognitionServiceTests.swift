@@ -1,4 +1,6 @@
 import CoreGraphics
+import Foundation
+import ImageIO
 import XCTest
 @testable import EqnSnap
 
@@ -52,6 +54,30 @@ final class FormulaRecognitionServiceTests: XCTestCase {
         XCTAssertEqual(counts.uniMERNet, 0)
     }
 
+    func testRecognizesWithBundledModelsWhenSwitchingBackAndForth() async throws {
+        guard UniMERNetModelBundleLoader.resourcesAvailable() else {
+            throw XCTSkip("Bundled UniMERNet models are not available")
+        }
+        let service = FormulaRecognitionService()
+        let input = CapturedFormulaImage(image: try loadFormulaImage())
+
+        let pix2tex = try await service.recognize(input, using: .pix2tex)
+        let uniMERNet = try await service.recognize(input, using: .uniMERNet)
+        let pix2texAgain = try await service.recognize(input, using: .pix2tex)
+
+        XCTAssertEqual(pix2tex.model, .pix2tex)
+        XCTAssertEqual(
+            pix2tex.latex,
+            "=-\\int_{0}^{x}{\\frac{1-t-1}{1-t}}d t=-\\int_{0}^{x}(1-{\\frac{1}{1-t}})d t=-\\ln(1-x)-x"
+        )
+        XCTAssertEqual(uniMERNet.model, .uniMERNet)
+        XCTAssertEqual(
+            uniMERNet.latex,
+            "= - \\! \\! \\int _ { 0 } ^ { x } \\! \\frac { 1 - t - 1 } { 1 - t } d t = - \\! \\! \\int _ { 0 } ^ { x } ( 1 - \\frac { 1 } { 1 - t } ) d t = - \\ln ( 1 - x ) - x"
+        )
+        XCTAssertEqual(pix2texAgain, pix2tex)
+    }
+
     private func makeImage() throws -> CGImage {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let context = CGContext(
@@ -64,6 +90,19 @@ final class FormulaRecognitionServiceTests: XCTestCase {
             bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
         )
         guard let image = context?.makeImage() else {
+            throw FormulaRecognitionServiceFixtureError.imageCreationFailed
+        }
+        return image
+    }
+
+    private func loadFormulaImage() throws -> CGImage {
+        let url = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .appendingPathComponent("Tools/model-conversion/test_images/formula.png")
+        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+              let image = CGImageSourceCreateImageAtIndex(source, 0, nil)
+        else {
             throw FormulaRecognitionServiceFixtureError.imageCreationFailed
         }
         return image

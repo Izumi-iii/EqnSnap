@@ -208,6 +208,7 @@
 				A0FC72CF30087D6500AE7F26 /* Sources */,
 				A0FC72D030087D6500AE7F26 /* Frameworks */,
 				A0FC72D130087D6500AE7F26 /* Resources */,
+				B10000000000000000000601 /* Prepare UniMERNet Models */,
 			);
 			buildRules = (
 			);
@@ -334,6 +335,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B10000000000000000000601 /* Prepare UniMERNet Models */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Prepare UniMERNet Models";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "\"${SRCROOT}/Scripts/prepare_unimernet_models.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A0FC72CF30087D6500AE7F26 /* Sources */ = {
@@ -554,9 +573,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WDW437UY2D;
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
+					ENABLE_HARDENED_RUNTIME = YES;
+					ENABLE_PREVIEWS = YES;
+					ENABLE_USER_SCRIPT_SANDBOXING = NO;
+					ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -584,9 +604,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WDW437UY2D;
 				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
+					ENABLE_HARDENED_RUNTIME = YES;
+					ENABLE_PREVIEWS = YES;
+					ENABLE_USER_SCRIPT_SANDBOXING = NO;
+					ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
