@@ -109,7 +109,7 @@ final class UniMERNetRecognitionPipelineTests: XCTestCase {
     private func loadTokenizer() throws -> UniMERNetTokenizer {
         try UniMERNetTokenizer(
             contentsOf: repositoryRoot().appendingPathComponent(
-                "EqnSnap/Resources/Models/UniMERNet/tokenizer.json"
+                "EqnSnap/Resources/Models/UniMERNet/UniMERNetTokenizer.json"
             )
         )
     }

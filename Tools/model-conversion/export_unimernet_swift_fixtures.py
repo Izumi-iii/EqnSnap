@@ -28,7 +28,7 @@ TOKENIZER_OUTPUT = (
     / "Resources"
     / "Models"
     / "UniMERNet"
-    / "tokenizer.json"
+    / "UniMERNetTokenizer.json"
 )
 FIXTURE_DIRECTORY = (
     REPOSITORY_ROOT / "EqnSnapTests" / "Fixtures" / "UniMERNet"

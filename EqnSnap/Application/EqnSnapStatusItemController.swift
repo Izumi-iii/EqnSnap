@@ -4,6 +4,7 @@ import AppKit
 @MainActor
 final class EqnSnapStatusItemController: NSObject {
     var onCapture: (() -> Void)?
+    var onOpenSettings: (() -> Void)?
     var onOpenScreenCaptureSettings: (() -> Void)?
 
     private var statusItem: NSStatusItem?
@@ -58,6 +59,13 @@ final class EqnSnapStatusItemController: NSObject {
         )
         permissionItem.target = self
 
+        let settingsItem = NSMenuItem(
+            title: "设置…",
+            action: #selector(openSettings),
+            keyEquivalent: ","
+        )
+        settingsItem.target = self
+
         let quitItem = NSMenuItem(
             title: "退出 EqnSnap",
             action: #selector(NSApplication.terminate(_:)),
@@ -67,6 +75,7 @@ final class EqnSnapStatusItemController: NSObject {
 
         menu.addItem(captureItem)
         menu.addItem(.separator())
+        menu.addItem(settingsItem)
         menu.addItem(permissionItem)
         menu.addItem(.separator())
         menu.addItem(quitItem)
@@ -78,5 +87,9 @@ final class EqnSnapStatusItemController: NSObject {
 
     @objc private func openScreenCaptureSettings() {
         onOpenScreenCaptureSettings?()
+    }
+
+    @objc private func openSettings() {
+        onOpenSettings?()
     }
 }

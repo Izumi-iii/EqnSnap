@@ -1,4 +1,6 @@
 import CoreGraphics
+import CoreML
+import Foundation
 
 final class UniMERNetScreenshotRecognizer {
     private let preprocessor: UniMERNetFormulaImagePreprocessor
@@ -10,6 +12,19 @@ final class UniMERNetScreenshotRecognizer {
     ) {
         self.preprocessor = preprocessor
         self.pipeline = pipeline
+    }
+
+    convenience init(
+        bundle: Bundle = .main,
+        computeUnits: MLComputeUnits = .all
+    ) throws {
+        let models = try UniMERNetModelBundleLoader(
+            computeUnits: computeUnits
+        ).load(from: bundle)
+        self.init(
+            preprocessor: UniMERNetFormulaImagePreprocessor(),
+            pipeline: models.makeRecognitionPipeline()
+        )
     }
 
     func recognize(_ screenshot: CGImage) async throws

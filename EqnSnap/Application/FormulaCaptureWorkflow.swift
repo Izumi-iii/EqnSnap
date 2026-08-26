@@ -1,4 +1,5 @@
 import AppKit
+import Combine
 import CoreGraphics
 
 @MainActor
@@ -14,10 +15,14 @@ final class FormulaCaptureWorkflow {
 
     private let permissionClient = MacScreenCapturePermissionClient()
     private let captureService = MacScreenCaptureService()
-    private let recognitionService = Pix2TexRecognitionService()
+    private let recognitionService = FormulaRecognitionService()
+    private let modelSettings = RecognitionModelSettings.shared
     private let hotKeyClient = CarbonHotKeyClient()
     private let statusItemController = EqnSnapStatusItemController()
     private let resultWindowController = FormulaResultWindowController()
+    private let settingsWindowController = RecognitionSettingsWindowController(
+        settings: .shared
+    )
 
     private var state = State.idle
     private var activeSessionID: CaptureSessionID?
@@ -27,10 +32,25 @@ final class FormulaCaptureWorkflow {
     private var overlayWindowController: FormulaSelectionOverlayWindowController?
     private var captureTask: Task<Void, Never>?
     private var recognitionTask: Task<Void, Never>?
+    private var modelSelectionCancellable: AnyCancellable?
 
     func start() {
+        modelSelectionCancellable = modelSettings.$selectedModel
+            .removeDuplicates()
+            .dropFirst()
+            .sink { [weak self] model in
+                guard let self else { return }
+                Task {
+                    await self.recognitionService.discardLoadedEngine(
+                        except: model
+                    )
+                }
+            }
         statusItemController.onCapture = { [weak self] in
             self?.beginCapture()
+        }
+        statusItemController.onOpenSettings = { [weak self] in
+            self?.settingsWindowController.show()
         }
         statusItemController.onOpenScreenCaptureSettings = { [weak self] in
             self?.permissionClient.openSystemSettings()
@@ -50,9 +70,11 @@ final class FormulaCaptureWorkflow {
 
     func stop() {
         invalidateSession()
+        modelSelectionCancellable = nil
         hotKeyClient.unregister()
         statusItemController.uninstall()
         resultWindowController.dismiss()
+        settingsWindowController.dismiss()
     }
 
     func beginCapture() {
@@ -163,7 +185,8 @@ final class FormulaCaptureWorkflow {
             guard let self else { return }
             do {
                 let output = try await recognitionService.recognize(
-                    CapturedFormulaImage(image: image)
+                    CapturedFormulaImage(image: image),
+                    using: modelSettings.selectedModel
                 )
                 guard isCurrent(sessionID), !Task.isCancelled else { return }
                 state = .presenting
@@ -273,6 +296,12 @@ final class FormulaCaptureWorkflow {
             return "公式可能过长或超出当前单行公式支持范围。"
         case Pix2TexDecoderError.repetitionDetected:
             return "模型产生了重复输出，请调整选区后重试。"
+        case UniMERNetCachedDecoderError.maximumTokenLengthReached:
+            return "公式过长，UniMERNet 已达到当前 512 Token 上限。"
+        case UniMERNetCachedDecoderError.repetitionDetected:
+            return "UniMERNet 产生了重复输出，请调整选区后重试。"
+        case UniMERNetModelBundleLoaderError.missingResource:
+            return "UniMERNet 模型资源不完整，请重新安装应用。"
         default:
             return "本地模型未能完成识别，你可以使用同一截图重试。"
         }

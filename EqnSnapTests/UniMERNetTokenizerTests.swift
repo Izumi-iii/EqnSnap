@@ -7,7 +7,7 @@ final class UniMERNetTokenizerTests: XCTestCase {
         let root = repositoryRoot()
         let tokenizer = try UniMERNetTokenizer(
             contentsOf: root.appendingPathComponent(
-                "EqnSnap/Resources/Models/UniMERNet/tokenizer.json"
+                "EqnSnap/Resources/Models/UniMERNet/UniMERNetTokenizer.json"
             )
         )
         let fixtureData = try Data(
@@ -32,7 +32,7 @@ final class UniMERNetTokenizerTests: XCTestCase {
     func testRejectsOutOfRangeToken() throws {
         let tokenizer = try UniMERNetTokenizer(
             contentsOf: repositoryRoot().appendingPathComponent(
-                "EqnSnap/Resources/Models/UniMERNet/tokenizer.json"
+                "EqnSnap/Resources/Models/UniMERNet/UniMERNetTokenizer.json"
             )
         )
 

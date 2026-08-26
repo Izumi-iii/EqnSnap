@@ -14,7 +14,7 @@ struct EqnSnapApp: App {
 
     var body: some Scene {
         Settings {
-            EmptyView()
+            RecognitionSettingsView(settings: .shared)
         }
     }
 }
@@ -24,6 +24,7 @@ final class EqnSnapAppDelegate: NSObject, NSApplicationDelegate {
     private var workflow: FormulaCaptureWorkflow?
 #if DEBUG
     private var previewResultWindowController: FormulaResultWindowController?
+    private var previewSettingsWindowController: RecognitionSettingsWindowController?
 #endif
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -34,6 +35,15 @@ final class EqnSnapAppDelegate: NSObject, NSApplicationDelegate {
 #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("--preview-result-window") {
             showResultWindowPreview()
+        }
+        if ProcessInfo.processInfo.arguments.contains("--preview-settings-window") {
+            DispatchQueue.main.async {
+                let controller = RecognitionSettingsWindowController(
+                    settings: .shared
+                )
+                self.previewSettingsWindowController = controller
+                controller.show()
+            }
         }
 #endif
     }
