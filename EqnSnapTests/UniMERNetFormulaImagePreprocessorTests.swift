@@ -36,12 +36,12 @@ final class UniMERNetFormulaImagePreprocessorTests: XCTestCase {
         let comparison = compare(actual, expected)
         XCTAssertLessThan(
             comparison.maximumAbsoluteError,
-            1.5,
+            0.4,
             "max error: \(comparison.maximumAbsoluteError)"
         )
         XCTAssertLessThan(
             comparison.meanAbsoluteError,
-            0.025,
+            0.007,
             "mean error: \(comparison.meanAbsoluteError)"
         )
     }

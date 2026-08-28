@@ -53,10 +53,10 @@ final class UniMERNetRecognitionPipelineTests: XCTestCase {
 
         let result = try await recognizer.recognize(loadFormulaImage())
 
-        XCTAssertEqual(result.decoderSteps, 133)
+        XCTAssertEqual(result.decoderSteps, 166)
         XCTAssertEqual(
             result.latex,
-            "= - \\! \\! \\int _ { 0 } ^ { x } \\! \\frac { 1 - t - 1 } { 1 - t } d t = - \\! \\! \\int _ { 0 } ^ { x } ( 1 - \\frac { 1 } { 1 - t } ) d t = - \\ln ( 1 - x ) - x"
+            "= - \\! \\! \\int _ { 0 } ^ { x } \\! \\frac { 1 \\! - \\! t - 1 } { 1 \\! - \\! t } d t = - \\! \\! \\int _ { 0 } ^ { x } ( 1 \\! - \\! \\frac { 1 } { 1 \\! - \\! t } ) d t = - \\! \\ln ( 1 \\! - \\! x ) - x"
         )
     }
 

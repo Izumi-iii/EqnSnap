@@ -69,7 +69,7 @@ final class UniMERNetFormulaImagePreprocessor {
             cropped.image,
             width: firstSize.width,
             height: firstSize.height,
-            highQuality: true
+            highQuality: false
         )
         let contentSize = thumbnailSize(
             width: firstResize.width,
@@ -232,6 +232,9 @@ final class UniMERNetFormulaImagePreprocessor {
         if image.width == width, image.height == height {
             return image
         }
+        if !highQuality {
+            return resizeBilinear(image, width: width, height: height)
+        }
         var sourcePixels = image.pixels
         var destinationPixels = [UInt8](
             repeating: 0,
@@ -255,9 +258,7 @@ final class UniMERNetFormulaImagePreprocessor {
                     &sourceBuffer,
                     &destinationBuffer,
                     nil,
-                    highQuality
-                        ? vImage_Flags(kvImageHighQualityResampling)
-                        : vImage_Flags(kvImageNoFlags)
+                    vImage_Flags(kvImageHighQualityResampling)
                 )
             }
         }
@@ -265,6 +266,61 @@ final class UniMERNetFormulaImagePreprocessor {
             throw UniMERNetFormulaImagePreprocessorError.imageResizeFailed(error)
         }
         return RGBAImage(width: width, height: height, pixels: destinationPixels)
+    }
+
+    private func resizeBilinear(
+        _ image: RGBAImage,
+        width: Int,
+        height: Int
+    ) -> RGBAImage {
+        let scaleX = Double(image.width) / Double(width)
+        let scaleY = Double(image.height) / Double(height)
+        var pixels = [UInt8](repeating: 0, count: width * height * 4)
+
+        for y in 0..<height {
+            let sourceY = min(
+                Double(image.height - 1),
+                max(0, (Double(y) + 0.5) * scaleY - 0.5)
+            )
+            let top = Int(sourceY.rounded(.down))
+            let bottom = min(top + 1, image.height - 1)
+            let verticalWeight = sourceY - Double(top)
+
+            for x in 0..<width {
+                let sourceX = min(
+                    Double(image.width - 1),
+                    max(0, (Double(x) + 0.5) * scaleX - 0.5)
+                )
+                let left = Int(sourceX.rounded(.down))
+                let right = min(left + 1, image.width - 1)
+                let horizontalWeight = sourceX - Double(left)
+
+                for channel in 0..<4 {
+                    let topLeft = Double(
+                        image.pixels[(top * image.width + left) * 4 + channel]
+                    )
+                    let topRight = Double(
+                        image.pixels[(top * image.width + right) * 4 + channel]
+                    )
+                    let bottomLeft = Double(
+                        image.pixels[(bottom * image.width + left) * 4 + channel]
+                    )
+                    let bottomRight = Double(
+                        image.pixels[(bottom * image.width + right) * 4 + channel]
+                    )
+                    let topValue = topLeft
+                        + (topRight - topLeft) * horizontalWeight
+                    let bottomValue = bottomLeft
+                        + (bottomRight - bottomLeft) * horizontalWeight
+                    let value = topValue
+                        + (bottomValue - topValue) * verticalWeight
+                    pixels[(y * width + x) * 4 + channel] = UInt8(
+                        clamping: Int(value.rounded(.toNearestOrEven))
+                    )
+                }
+            }
+        }
+        return RGBAImage(width: width, height: height, pixels: pixels)
     }
 
     private func makeTensor(_ content: RGBAImage) throws -> MLMultiArray {
